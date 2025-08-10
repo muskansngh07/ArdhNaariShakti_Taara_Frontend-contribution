@@ -1,12 +1,7 @@
 import React from "react";
 import "./blog.css";
-import {
-  AiOutlineTags,
-  AiOutlineClockCircle,
-  AiOutlineComment,
-  AiOutlineShareAlt,
-} from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { AiOutlineTags, AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai";
 
 export const Card = ({ posts }) => {
   const PublicFlo = "https://taara-backend.onrender.com/images/";
@@ -19,38 +14,40 @@ export const Card = ({ posts }) => {
             <div className="box boxItems" key={item._id || item.id}>
               {/* Image */}
               <div className="img">
-                {item.photo && (
+                {item.photo ? (
                   <img src={PublicFlo + item.photo} alt={item.title || "Post"} />
+                ) : (
+                  <div className="placeholder">No Image</div>
                 )}
               </div>
 
               {/* Details */}
               <div className="details">
+                
                 {/* Tags */}
                 <div className="tag">
                   <AiOutlineTags className="icon" />
-                  {Array.isArray(item.categories) &&
-                    item.categories.map((c, index) => (
-                      <a href="/" key={index}>
-                        #{c.name}
-                      </a>
+                  {Array.isArray(item.categories) && item.categories.length > 0 ? (
                     item.categories
-                      .filter(c => c && c.name)
+                      .filter((c) => c && c.name)
                       .map((c, index) => (
                         <a href="/" key={index}>
                           #{c.name}
                         </a>
-                      ))}
+                      ))
+                  ) : (
+                    <span>No Tags</span>
+                  )}
                 </div>
 
                 {/* Title */}
-                <Link to={`/post/${item._id}`}>
+                <Link to={`/post/${item._id || item.id}`}>
                   <h3>{item.title || "Untitled Post"}</h3>
                 </Link>
 
                 {/* Description */}
                 <p>
-                  {item.desc && typeof item.desc === 'string'
+                  {item.desc && typeof item.desc === "string"
                     ? item.desc.slice(0, 180) + "..."
                     : "No description available."}
                 </p>
