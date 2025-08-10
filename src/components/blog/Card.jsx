@@ -34,7 +34,13 @@ export const Card = ({ posts }) => {
                       <a href="/" key={index}>
                         #{c.name}
                       </a>
-                    ))}
+                    item.categories
+                      .filter(c => c && c.name)
+                      .map((c, index) => (
+                        <a href="/" key={index}>
+                          #{c.name}
+                        </a>
+                      ))}
                 </div>
 
                 {/* Title */}
