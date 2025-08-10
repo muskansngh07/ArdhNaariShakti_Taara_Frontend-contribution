@@ -44,7 +44,7 @@ export const Card = ({ posts }) => {
 
                 {/* Description */}
                 <p>
-                  {item.desc
+                  {item.desc && typeof item.desc === 'string'
                     ? item.desc.slice(0, 180) + "..."
                     : "No description available."}
                 </p>
